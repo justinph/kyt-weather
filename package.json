@@ -9,10 +9,12 @@
     "babel-preset-kyt-react": "0.1.1",
     "compression": "^1.6.2",
     "express": "^4.14.0",
+    "kyt": "0.4.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-redux": "^5.0.2",
     "react-router": "^2.6.1",
-    "kyt": "0.4.0"
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "enzyme": "^2.4.1",
