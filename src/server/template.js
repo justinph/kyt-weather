@@ -18,6 +18,10 @@ export default vo => `
     ${vo.cssBundle ? '<link rel="stylesheet" type="text/css" href="' + vo.cssBundle + '">' : ''}
 
     <title>Universal React Starter Kyt</title>
+
+    <script type="application/javascript">
+      window.__INITIAL_STATE__ = ${JSON.stringify(vo.initialState)};
+    </script>
   </head>
 
   <body>

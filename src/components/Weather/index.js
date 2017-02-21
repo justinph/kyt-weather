@@ -21,7 +21,7 @@ class Weather extends Component {
       city: locales[0]
     }
 
-    this.onCityChange.bind(this);
+    this.onCityChange = this.onCityChange.bind(this);
   }
 
   getCities() {

@@ -10,6 +10,13 @@ import match from 'react-router/lib/match';
 import template from './template';
 import routes from '../routes';
 
+// new redux stuff
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import * as reducers from '../shared/reducers';
+
+// end redux stuff
+
 const clientAssets = require(KYT.ASSETS_MANIFEST); // eslint-disable-line import/no-dynamic-require
 const app = express();
 
@@ -25,6 +32,8 @@ app.use(express.static(path.join(process.cwd(), KYT.PUBLIC_DIR)));
 // Setup server side routing.
 app.get('*', (request, response) => {
   const history = createMemoryHistory(request.originalUrl);
+  const reducer = combineReducers(reducers);
+  const store = createStore(reducer);
 
   match({ routes, history }, (error, redirectLocation, renderProps) => {
     if (error) {
@@ -34,14 +43,19 @@ app.get('*', (request, response) => {
     } else if (renderProps) {
       // When a React Router route is matched then we render
       // the components and assets into the template.
+      //console.log('initalState', JSON.stringify(store.getState()));
       response.status(200).send(template({
-        root: renderToString(<RouterContext {...renderProps} />),
+        root: renderToString(<Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>),
         jsBundle: clientAssets.main.js,
         cssBundle: clientAssets.main.css,
+        initialState: store.getState(),
       }));
     } else {
       response.status(404).send('Not found');
     }
+
   });
 });
 
