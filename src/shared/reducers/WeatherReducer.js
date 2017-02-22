@@ -1,5 +1,6 @@
 //import Immutable from 'immutable';
-import DefaultForecast from '../../forecast';
+import DefaultForecast, { ajaxForecast } from '../../forecast';
+
 
 export default function weatherReducer(state = DefaultForecast, action) {
   switch(action.type) {

@@ -11,7 +11,8 @@ import template from './template';
 import routes from '../routes';
 
 // new redux stuff
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import * as reducers from '../shared/reducers';
 
@@ -33,7 +34,7 @@ app.use(express.static(path.join(process.cwd(), KYT.PUBLIC_DIR)));
 app.get('*', (request, response) => {
   const history = createMemoryHistory(request.originalUrl);
   const reducer = combineReducers(reducers);
-  const store = createStore(reducer);
+  const store = createStore(reducer, applyMiddleware(thunk));
 
   match({ routes, history }, (error, redirectLocation, renderProps) => {
     if (error) {

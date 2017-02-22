@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './styles.scss';
 
-import Forecast, { min, max } from '../../forecast';
+import Forecast, { min, max, ajaxForecast } from '../../forecast';
 import DayGraph from './DayGraph';
 
 import { bindActionCreators } from 'redux';
@@ -24,7 +24,7 @@ function mapDispatchToProps(dispatch) {
 const locales = [
     { name: 'New York, NY', id: 349727 },
     { name: 'Seattle, WA', id: 351409 },
-    { name: 'Minneapolis, MN', id: 348794 }
+    { name: 'Minneapolis, MN', id: 348794 },
 ];
 
 
@@ -37,8 +37,12 @@ class Weather extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: locales[0]
-    }
+      city: locales[0],
+    };
+
+    // ajaxForecast.then((data) => {
+    //   console.log(data);
+    // });
 
     this.onCityChange = this.onCityChange.bind(this);
   }
