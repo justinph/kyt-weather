@@ -24,11 +24,9 @@ forecast.forEach((f) => {
 export const min = tMin;
 export const max = tMax;
 
-console.log(fetch);
-
-export const ajaxForecast = fetch('https://dataservice.accuweather.com/forecasts/v1/daily/5day/349727?apikey=')
-  .then(response => response.json())
-  .then(json => json);
+// export const ajaxForecast = fetch('https://dataservice.accuweather.com/forecasts/v1/daily/5day/349727?apikey=??')
+//   .then(response => response.json())
+//   .then(json => json);
 
 
 export default forecast;
