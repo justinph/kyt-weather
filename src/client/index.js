@@ -4,14 +4,16 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './Root';
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import * as reducers from '../shared/reducers';
+
 
 let initialState = window.__INITIAL_STATE__;
 
 const reducer = combineReducers(reducers);
-const store   = createStore(reducer, initialState);
+const store   = createStore(reducer, initialState, applyMiddleware(thunk));
 
 const root = document.querySelector('#root');
 

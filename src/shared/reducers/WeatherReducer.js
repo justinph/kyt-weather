@@ -1,30 +1,27 @@
-import DefaultForecast from '../../forecast'; //, { ajaxForecast }
 
-const locales = {
-    'new-york-city': { name: 'New York, NY', id: 349727 },
-    'seattle':       { name: 'Seattle, WA', id: 351409 },
-    'minneapolis':   { name: 'Minneapolis, MN', id: 348794 },
-};
+import { locales } from '../actions/WeatherActions';
 
 const initialState = {
   availaleLocales: locales,
   selectedLocale: locales['new-york-city'],
   selectedLocaleSlug: '',
-  forecast: {}
+  forecast: {},
 };
 
-
 export default function weatherReducer(state = initialState, action) {
-  switch(action.type) {
+  let newObj;
+  switch (action.type) {
     case 'GET_WEATHER':
       return state;
-    case 'SET_LOCALE':
-      let newObj = Object.assign({}, state, {
+
+    case 'SET_LOCALE_WITH_FORECAST':
+      newObj = Object.assign({}, state, {
         selectedLocaleSlug: action.slug,
         selectedLocale: locales[action.slug],
-        forecast: DefaultForecast,
+        forecast: action.forecast,
       });
       return newObj;
+
     default:
       return state;
   }

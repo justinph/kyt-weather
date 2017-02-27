@@ -21,7 +21,7 @@ class LocaleChooser extends Component {
   }
 
   onCityChange(event) {
-    this.props.actions.setLocale(event.target.value);
+    this.props.actions.getWeatherForSlug(event.target.value);
   }
 
   render() {

@@ -33,4 +33,4 @@ build
 Thumbs.db
 .DS_Store
 
-.accuweather-api-key
+.secrets.js
