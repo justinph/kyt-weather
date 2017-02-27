@@ -21,8 +21,8 @@ class DayGraph extends Component {
 
 
 DayGraph.propTypes = {
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
+  // min: PropTypes.number.isRequired,
+  // max: PropTypes.number.isRequired,
   forecast: PropTypes.object.isRequired
 };
 

@@ -5,6 +5,7 @@ export function getWeather() {
 
 
 export function setLocale(slug) {
+  //console.log('got slug', slug);
   return {
     type: 'SET_LOCALE',
     slug,
