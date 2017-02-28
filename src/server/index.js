@@ -44,7 +44,6 @@ app.get('*', (request, response) => {
     } else if (renderProps) {
       // When a React Router route is matched then we render
       // the components and assets into the template.
-      //console.log('initalState', JSON.stringify(store.getState()));
       response.status(200).send(template({
         root: renderToString(<Provider store={store}>
             <RouterContext {...renderProps} />

@@ -1,4 +1,7 @@
 
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
 import { ACCUWEATHER_API_KEY } from '../../../.secrets';
 
 export const locales = {
