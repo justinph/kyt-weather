@@ -36,7 +36,7 @@ app.get('*', (request, response) => {
   const reducer = combineReducers(reducers);
   const store = createStore(reducer, applyMiddleware(thunk));
 
-  match({ routes, history }, (error, redirectLocation, renderProps) => {
+  match({ routes: routes(store), history }, (error, redirectLocation, renderProps) => {
     if (error) {
       response.status(500).send(error.message);
     } else if (redirectLocation) {

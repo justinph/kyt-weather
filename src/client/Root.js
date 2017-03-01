@@ -6,8 +6,10 @@ import routes from '../routes';
 
 // We need a Root component for React Hot Loading.
 function Root() {
+  //console.log('root arg', store);
+  const store = 'goober';
   return (
-    <Router history={browserHistory} routes={routes} />
+    <Router history={browserHistory} routes={routes(store)} />
   );
 }
 

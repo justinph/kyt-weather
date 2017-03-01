@@ -20,11 +20,6 @@ export default function weatherReducer(state = initialState, action) {
         selectedLocale: locales[action.slug],
         forecast: action.forecast,
       });
-      console.log('action', action);
-      if (action.callback){
-        console.log('calling back');
-        action.callback();
-      }
       return newObj;
 
     default:

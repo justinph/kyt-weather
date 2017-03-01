@@ -14,25 +14,21 @@ export function getWeather() {
   return { type: 'GET_WEATHER' };
 }
 
-export function setLocaleWithForecast(slug, forecast, callback) {
+export function setLocaleWithForecast(slug, forecast) {
   return {
     type: 'SET_LOCALE_WITH_FORECAST',
     slug,
-    forecast,
-    callback: cb
+    forecast
   };
 }
 
-export function getWeatherForSlug(slug, callback=null) {
-  console.log('cb is', callback);
-  const cb = callback;
+export function getWeatherForSlug(slug) {
   const id = locales[slug].id;
   return function (dispatch) {
-    console.log('dispatching', callback);
     return fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${id}?apikey=${ACCUWEATHER_API_KEY}`)
       .then(response => response.json())
       .then((json) => {
-        console.log('json', json);
+        console.log('about to displatch');
         dispatch(setLocaleWithForecast(slug, json.DailyForecasts));
       })
       .catch((error) => {

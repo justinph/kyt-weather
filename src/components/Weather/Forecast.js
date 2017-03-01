@@ -10,6 +10,7 @@ import DayGraph from './DayGraph';
 
 class Forecast extends Component {
 
+
   getDayGraphs() {
     let i = 0;
     return this.props.forecast.map((f) => {
@@ -19,7 +20,7 @@ class Forecast extends Component {
   }
 
   render() {
-
+    console.log(this.props);
     return (<div>
       {/* <ul>
           <li>Low: {min}º</li>
@@ -31,7 +32,7 @@ class Forecast extends Component {
 }
 
 Forecast.propTypes = {
-    forecast: React.PropTypes.array.isRequired,
+    forecast: React.PropTypes.array,
 };
 
 export default Forecast;

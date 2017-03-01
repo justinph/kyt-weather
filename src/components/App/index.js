@@ -14,6 +14,9 @@ function App({ children }) {
         <li className={styles.navItem}>
           <Link className={styles.link} to="/tools">Tools</Link>
         </li>
+        <li className={styles.navItem}>
+          <Link className={styles.link} to="/weather">Weather</Link>
+        </li>
       </ul>
       <div className={styles.content}>
         {children}

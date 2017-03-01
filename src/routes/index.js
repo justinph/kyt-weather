@@ -4,6 +4,7 @@ import Route from 'react-router/lib/Route';
 import IndexRoute from 'react-router/lib/IndexRoute';
 import App from '../components/App';
 
+import * as WeatherActions    from '../shared/actions/WeatherActions';
 
 // Webpack 2 supports ES2015 `System.import` by auto-
 // chunking assets. Check out the following for more:
@@ -33,41 +34,6 @@ const importForecast = (nextState, cb) => {
     .catch((e) => { throw e; });
 };
 
-// TODO: Look here: https://github.com/reactjs/react-router-redux/issues/319
-// OR just buck up and use https://github.com/acdlite/redux-router
-
-// We use `getComponent` to dynamically load routes.
-// https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md
-const routes = (
-  <Route path="/" component={App}>
-    <IndexRoute getComponent={importHome} />
-    <Route path="tools" getComponent={importTools} />
-    <Route path="weather" getComponent={importWeatherIdx} >
-      <Route path=":location" getComponent={importForecast} onEnter={ }/>
-    </Route>
-  </Route>
-);
-
-function load (store, dispatch) {
-  return function (nextState, replace, next) {
-    dispatch(loadProject(nextState.params.id)).then(data => {
-      //some code
-        next();
-    });
-}
-
-
-/*
-(nextState, replace, cb) => {
-        console.log('nextState', nextState);
-        // cb();
-        if (nextState.params.location) {
-          console.log('dispatching action');
-          WeatherActions.getWeatherForSlug(nextState.params.location);
-          setTimeout(() => { cb(); }, 5000);
-
- */
-
 // Unfortunately, HMR breaks when we dynamically resolve
 // routes so we need to require them here as a workaround.
 // https://github.com/gaearon/react-hot-loader/issues/288
@@ -75,7 +41,26 @@ if (module.hot) {
   require('../components/Home');    // eslint-disable-line global-require
   require('../components/Tools');   // eslint-disable-line global-require
   require('../components/Weather');   // eslint-disable-line global-require
-  require('../components/Weather/Forecast.js');   // eslint-disable-line global-require
+  require('../components/Weather/Forecast');   // eslint-disable-line global-require
 }
 
-export default routes;
+export default function (store) {
+  return (
+    <Route path="/" component={App}>
+      <IndexRoute getComponent={importHome} />
+      <Route path="tools" getComponent={importTools} />
+      <Route path="weather" getComponent={importWeatherIdx} >
+        <Route path=":location" getComponent={importForecast} onEnter={(nextState, replace, callback) => {
+          if (!store.getState().weather.forecast.length) {
+            store.dispatch(WeatherActions.getWeatherForSlug(nextState.params.location)).then(() => {
+              callback();
+            });
+          } else {
+            callback();
+          }
+         }}/>
+        }
+      </Route>
+    </Route>
+  );
+}
