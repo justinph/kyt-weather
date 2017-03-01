@@ -7,16 +7,12 @@ import { renderToString } from 'react-dom/server';
 import RouterContext from 'react-router/lib/RouterContext';
 import createMemoryHistory from 'react-router/lib/createMemoryHistory';
 import match from 'react-router/lib/match';
-import template from './template';
-import routes from '../routes';
-
-// new redux stuff
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import template from './template';
+import routes from '../routes';
 import * as reducers from '../shared/reducers';
-
-// end redux stuff
 
 const clientAssets = require(KYT.ASSETS_MANIFEST); // eslint-disable-line import/no-dynamic-require
 const app = express();
@@ -46,8 +42,8 @@ app.get('*', (request, response) => {
       // the components and assets into the template.
       response.status(200).send(template({
         root: renderToString(<Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>),
+          <RouterContext {...renderProps} />
+        </Provider>),
         jsBundle: clientAssets.main.js,
         cssBundle: clientAssets.main.css,
         initialState: store.getState(),
@@ -55,7 +51,6 @@ app.get('*', (request, response) => {
     } else {
       response.status(404).send('Not found');
     }
-
   });
 });
 

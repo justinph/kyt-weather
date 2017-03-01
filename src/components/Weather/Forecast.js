@@ -1,15 +1,8 @@
 
 import React, { Component } from 'react';
-import styles from './styles.scss';
-import { browserHistory } from 'react-router';
-
-// import ForecastData, { min, max } from '../../forecast';
+import { connect } from 'react-redux';
 import DayGraph from './DayGraph';
-
-
-import { bindActionCreators } from 'redux';
-import * as WeatherActions    from '../../shared/actions/WeatherActions';
-import { connect }            from 'react-redux';
+import styles from './styles.scss';
 
 // selects what part of the store we want to access and care about for this component
 // and connects it to the props
@@ -28,7 +21,6 @@ class Forecast extends Component {
   }
 
   render() {
-    console.log('forecast', this.props);
     return (<div>
       {/* <ul>
           <li>Low: {min}º</li>

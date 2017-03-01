@@ -3,8 +3,7 @@ import React from 'react';
 import Route from 'react-router/lib/Route';
 import IndexRoute from 'react-router/lib/IndexRoute';
 import App from '../components/App';
-
-import * as WeatherActions    from '../shared/actions/WeatherActions';
+import locationLoader from '../shared/routeLoaders/WeatherLoader';
 
 // Webpack 2 supports ES2015 `System.import` by auto-
 // chunking assets. Check out the following for more:
@@ -50,18 +49,7 @@ export default function (store) {
       <IndexRoute getComponent={importHome} />
       <Route path="tools" getComponent={importTools} />
       <Route path="weather" getComponent={importWeatherIdx} >
-        <Route path=":location" getComponent={importForecast} onEnter={(nextState, replace, callback) => {
-          const weather = store.getState().weather;
-          console.log('i entered');
-          if (!weather.forecast.length || weather.forecast.selectedLocaleSlug !== nextState.params.location) {
-            store.dispatch(WeatherActions.getWeatherForSlug(nextState.params.location)).then(() => {
-              callback();
-            });
-          } else {
-            callback();
-          }
-         }}/>
-        }
+        <Route path=":location" getComponent={importForecast} onEnter={locationLoader(store)} />
       </Route>
     </Route>
   );

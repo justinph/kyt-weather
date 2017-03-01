@@ -3,20 +3,17 @@ import React from 'react';
 import Router from 'react-router/lib/Router';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-// import Root from './Root';
-
 import browserHistory from 'react-router/lib/browserHistory';
-import routes from '../routes';
-
-import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import routes from '../routes';
 import * as reducers from '../shared/reducers';
 
-let initialState = window.__INITIAL_STATE__;
+const initialState = window.__INITIAL_STATE__; // eslint-disable-line no-underscore-dangle
 
 const reducer = combineReducers(reducers);
-const store   = createStore(reducer, initialState, applyMiddleware(thunk));
+const store = createStore(reducer, initialState, applyMiddleware(thunk));
 
 const root = document.querySelector('#root');
 
