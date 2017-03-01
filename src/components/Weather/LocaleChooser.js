@@ -1,10 +1,10 @@
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import browserHistory from 'react-router/lib/browserHistory';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles.scss';
-import * as WeatherActions    from '../../shared/actions/WeatherActions';
+import * as WeatherActions from '../../shared/actions/WeatherActions';
 
 // selects what part of the store we want to access and care about for this component
 // and connects it to the props
@@ -25,18 +25,26 @@ class LocaleChooser extends Component {
   }
 
   getCities() {
-    const lcls = [<option value='' key='false'></option>];
+    const lcls = [];
+    if (!this.props.weather.selectedLocaleSlug) {
+      lcls.push(<option value key={false} />);
+    }
     Object.keys(this.props.weather.availaleLocales).forEach((slug) => {
       const myLocale = this.props.weather.availaleLocales[slug];
       lcls.push(<option value={slug} key={myLocale.id}>{myLocale.name}</option>);
     });
-    return (<select value={this.props.weather.selectedLocaleSlug} onChange={this.onCityChange}>{lcls}</select>);
+    return (
+      <select
+        value={this.props.weather.selectedLocaleSlug}
+        onChange={this.onCityChange}
+      >{lcls}</select>
+      );
   }
 
   onCityChange(event) {
-    if (event.target.value && event.target.value !== this.props.weather.selectedLocaleSlug){
+    if (event.target.value && event.target.value !== this.props.weather.selectedLocaleSlug) {
       this.props.actions.loading();
-       browserHistory.push(`/weather/${event.target.value}`);
+      browserHistory.push(`/weather/${event.target.value}`);
     }
   }
 
