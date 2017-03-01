@@ -51,7 +51,9 @@ export default function (store) {
       <Route path="tools" getComponent={importTools} />
       <Route path="weather" getComponent={importWeatherIdx} >
         <Route path=":location" getComponent={importForecast} onEnter={(nextState, replace, callback) => {
-          if (!store.getState().weather.forecast.length) {
+          const weather = store.getState().weather;
+          console.log('i entered');
+          if (!weather.forecast.length || weather.forecast.selectedLocaleSlug !== nextState.params.location) {
             store.dispatch(WeatherActions.getWeatherForSlug(nextState.params.location)).then(() => {
               callback();
             });
