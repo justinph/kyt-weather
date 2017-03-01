@@ -14,6 +14,9 @@ class Forecast extends Component {
 
   getDayGraphs() {
     let i = 0;
+    if (this.props.weather.loading) {
+      return (<p>Loading...</p>);
+    }
     return this.props.weather.forecast.map((f) => {
       i++;
       return (<DayGraph forecast={f} key={i}/>);
@@ -26,6 +29,7 @@ class Forecast extends Component {
           <li>Low: {min}º</li>
           <li>High: {max}º</li>
       </ul> */}
+
       {this.getDayGraphs()}
     </div>);
   }

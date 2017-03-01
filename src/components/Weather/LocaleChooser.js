@@ -1,14 +1,20 @@
 
 import React, { Component, PropTypes } from 'react';
 import browserHistory from 'react-router/lib/browserHistory';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import styles from './styles.scss';
-import { connect }            from 'react-redux';
-
+import * as WeatherActions    from '../../shared/actions/WeatherActions';
 
 // selects what part of the store we want to access and care about for this component
 // and connects it to the props
 function mapStateToProps(reduxStoreState) {
   return { weather: reduxStoreState.weather };
+}
+
+// connects actions to the redux dispatcher
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(WeatherActions, dispatch) };
 }
 
 class LocaleChooser extends Component {
@@ -28,7 +34,10 @@ class LocaleChooser extends Component {
   }
 
   onCityChange(event) {
-    browserHistory.push(`/weather/${event.target.value}`);
+    if (event.target.value && event.target.value !== this.props.weather.selectedLocaleSlug){
+      this.props.actions.loading();
+       browserHistory.push(`/weather/${event.target.value}`);
+    }
   }
 
   render() {
@@ -43,4 +52,4 @@ LocaleChooser.propTypes = {
   }).isRequired,
 };
 
-export default connect(mapStateToProps)(LocaleChooser);
+export default connect(mapStateToProps, mapDispatchToProps)(LocaleChooser);

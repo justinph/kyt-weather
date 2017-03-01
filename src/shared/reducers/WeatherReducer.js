@@ -6,6 +6,7 @@ const initialState = {
   selectedLocale: locales['new-york-city'],
   selectedLocaleSlug: '',
   forecast: {},
+  loading: null,
 };
 
 export default function weatherReducer(state = initialState, action) {
@@ -19,9 +20,11 @@ export default function weatherReducer(state = initialState, action) {
         selectedLocaleSlug: action.slug,
         selectedLocale: locales[action.slug],
         forecast: action.forecast,
+        loading: false,
       });
       return newObj;
-
+    case 'LOADING_FORECAST':
+      return Object.assign({}, state, { loading: true });
     default:
       return state;
   }

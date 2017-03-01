@@ -12,6 +12,10 @@ export function getWeather() {
   return { type: 'GET_WEATHER' };
 }
 
+export function loading() {
+  return { type: 'LOADING_FORECAST' };
+}
+
 export function setLocaleWithForecast(slug, forecast) {
   return {
     type: 'SET_LOCALE_WITH_FORECAST',
