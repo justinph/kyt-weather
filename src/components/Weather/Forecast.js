@@ -29,17 +29,20 @@ class Forecast extends Component {
     }
     return this.props.weather.forecast.map((f) => {
       i += 1;
-      return (<DayGraph forecast={f} key={i} />);
+      return (<DayGraph forecast={f} key={i} max={this.state.max} min={this.state.min} />);
     });
   }
 
   render() {
+    console.log(styles);
     return (<div>
       <ul>
         <li>Low: {this.state.min}º</li>
         <li>High: {this.state.max}º</li>
       </ul>
+      <div className={styles.dayWrap}>
       {this.getDayGraphs()}
+      </div>
     </div>);
   }
 }

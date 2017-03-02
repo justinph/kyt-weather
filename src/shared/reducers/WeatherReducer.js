@@ -2,8 +2,8 @@
 import { locales } from '../actions/WeatherActions';
 
 const initialState = {
-  availaleLocales: locales,
-  selectedLocale: locales['new-york-city'],
+  availableLocales: locales,
+  selectedLocale: '',
   selectedLocaleSlug: '',
   forecast: {},
   loading: null,

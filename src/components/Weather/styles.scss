@@ -1,3 +1,13 @@
 
 @import '../../shared-styles/variables';
 
+.dayWrap {
+    width: 100%;
+    position: relative;
+    height: 300px;
+
+    .day {
+        display: inline-block;
+        position: relative;
+    }
+}

@@ -29,8 +29,8 @@ class LocaleChooser extends Component {
     if (!this.props.weather.selectedLocaleSlug) {
       lcls.push(<option value key={false} />);
     }
-    Object.keys(this.props.weather.availaleLocales).forEach((slug) => {
-      const myLocale = this.props.weather.availaleLocales[slug];
+    Object.keys(this.props.weather.availableLocales).forEach((slug) => {
+      const myLocale = this.props.weather.availableLocales[slug];
       lcls.push(<option value={slug} key={myLocale.id}>{myLocale.name}</option>);
     });
     return (
